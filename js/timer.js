@@ -18,19 +18,31 @@ function update(){
 	timer.html(time);
 }
 
+
+function addAnimation(object, animation){
+	var target = $("#"+object);
+	var ani = ("animated " + animation);
+
+	target.addClass(ani).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		target.removeClass(ani);
+	});
+}
+
 function started(){
 		seconds++;
 		if(seconds >= 60){
+			
 			minutes++;
 			seconds = 0;
+			addAnimation("circle", "pulse");
 
 			if (minutes >= 60){
 				hours++;
+				minutes = 0;
 			}
 		}
 		update();
 }
-
 $(document).ready(function(){
 	timer.html(time);
 
@@ -46,6 +58,7 @@ $(document).ready(function(){
 			seconds = 0;
 			minutes = 0;
 			hours = 0;
+			addAnimation("circle", "bounce");
 			update();
 		})
 	});
@@ -55,7 +68,7 @@ $(document).ready(function(){
 		seconds = 0;
 		minutes = 0;
 		hours = 0;
-
+		addAnimation("circle", "bounce");
 		update();
 		})
 

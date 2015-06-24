@@ -9,13 +9,13 @@ body, html{
 .box{
 	border: 5px solid white;
 }
-.circle{
+#circle{
 	border-radius:100%;
 	height:26em;
 	width:26em;
 	margin: auto;
 	margin-bottom:25px;
-	border: solid 2px #ddd;
+	border: solid 5px #ddd;
 	padding: 10em 3em;
 }
 
