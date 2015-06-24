@@ -14,6 +14,7 @@ body, html{
 	height:26em;
 	width:26em;
 	margin: auto;
+	margin-bottom:25px;
 	border: solid 2px #ddd;
 	padding: 10em 3em;
 }
