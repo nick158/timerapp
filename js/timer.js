@@ -13,41 +13,50 @@ function checkZeroes(a){
 		return String(a);
 	}
 }
-function update(){
+
+function Clock() {
+
+	//updates the time with 0's
+	this.update = function(){
 	time = (checkZeroes(hours)+":"+checkZeroes(minutes)+":"+checkZeroes(seconds));
 	timer.html(time);
+	},
+	//easier to add and change animations with animate.css
+	this.addAnimation = function(object, animation){
+		var target = $("#"+object);
+		var ani = ("animated " + animation);
+		//add the desired animation and on end remove the class
+		target.addClass(ani).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			target.removeClass(ani);
+		});
+	}
 }
 
+//make stopwatch object with unique method for counting
+var stopwatch = new Clock();
 
-function addAnimation(object, animation){
-	var target = $("#"+object);
-	var ani = ("animated " + animation);
-
-	target.addClass(ani).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-		target.removeClass(ani);
-	});
-}
-
-function started(){
+stopwatch.started = function(){
 		seconds++;
 		if(seconds >= 60){
 			
 			minutes++;
 			seconds = 0;
-			addAnimation("circle", "pulse");
+			this.addAnimation("circle", "pulse");
 
 			if (minutes >= 60){
 				hours++;
 				minutes = 0;
 			}
 		}
-		update();
+		this.update();
 }
+
+
 $(document).ready(function(){
 	timer.html(time);
 
 	$("#start").click(function(){
-		var startFunc = setInterval(function(){ started(); }, 1000);
+		var startFunc = setInterval(function(){ stopwatch.started(); }, 1000);
 
 		$("#stop").click(function(){
 			clearInterval(startFunc);
@@ -58,8 +67,8 @@ $(document).ready(function(){
 			seconds = 0;
 			minutes = 0;
 			hours = 0;
-			addAnimation("circle", "bounce");
-			update();
+			stopwatch.addAnimation("circle", "bounce");
+			stopwatch.update();
 		})
 	});
 
@@ -68,8 +77,8 @@ $(document).ready(function(){
 		seconds = 0;
 		minutes = 0;
 		hours = 0;
-		addAnimation("circle", "bounce");
-		update();
+		stopwatch.addAnimation("circle", "bounce");
+		stopwatch.update();
 		})
 
 
