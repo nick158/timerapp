@@ -1,6 +1,22 @@
 body, html{
 	height: 100%;
-	width: 100%;
+}
+#wrap{
+	min-height: 100%;
+	max-height:120%;
+}
+#main{
+	padding-bottom: 12.5em;
+}
+#footer{
+	position: relative;
+	clear: both;
+	margin-top: -12.5em;
+	height: 12.5em;
+	padding-top: 1.25px;
+}
+.well{
+	margin-bottom: 0px;
 }
 .center{
 	text-align: center;
@@ -37,4 +53,22 @@ body, html{
 	width: 20em;
 	margin: 0px auto;
 }
+#timeChoice, #stopChoice{
+	width: 8em;
+	margin-top: 3em;
+}
+.footer{
+	position: absolute;
+	margin-top: 100%;
+}
+.container-fluid{
+	padding-left: 0px;
+	padding-right: 0px;
+}
 
+#mybox{
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid white;
+}

@@ -12,20 +12,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<header class="jumbotron center">
-	<h1>Online Timer</h1>
-	<div class="row">
-	<div class="col-xs-12 col-md-6 col-md-offset-3 center">
-		<div class="row">
-			<div class="col-xs-6 pre">
-				<button type="button" class="btn btn-stuff" id="stopwatch">Stopwatch</button>
-			</div>
-			<div class="col-xs-6 pre">
-				<button type="button" class="btn btn-stuff" id="timing">Timer</button>
-			</div>
-		</div>
-	</div>
+<div id="mybox">
+	<form>
+	<input type="number"></input>
+	<form>
 </div>
+<div id="wrap">
+<div id="main" class="container-fluid">
+<header class="jumbotron center">
+	<div class="row">
+		<div class="col-xs-12 col-md-4 col-md-push-4 center">
+			<div><h1>Online Stopwatch</h1></div>
+		</div>
+		<div class="col-xs-6 col-md-4 col-md-pull-4 center">
+			<div class="btn btn-primary" id="stopChoice">Stopwatch</div>
+		</div>
+		<div class="col-xs-6 col-md-4 center">
+			<div class="btn btn-primary" id="timeChoice">Timer</div>
+		<div>
+	</div>
 </header>
 <div class="row">
 	<div class="col-xs-12 col-md-6 col-md-offset-3 center">
@@ -54,7 +59,16 @@
 		</div>
 	</div>
 </div>
+</div>
+</div>
 
+<footer id="footer well">
+	<div class="container-fluid">
+		<div class="well">
+			<p> A project by Nicholas Chan</p>
+		</div>
+	</div>
+</footer>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/timer.js" type="text/javascript"></script>

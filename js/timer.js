@@ -50,25 +50,65 @@ stopwatch.started = function(){
 		}
 		this.update();
 }
+stopwatch.reset = function() {
+		seconds = 0;
+		minutes = 0;
+		hours = 0;
+		this.update();
+}
 
+var timing = new Clock();
+
+timing.started = function(){
+	// for the timer, it needs to hide everything, show field where user can enter in the desired length
+	//after entering the desired length, counts down.
+	var seconds = $("#seconds").value;
+	var minutes = $('#hours').value;
+	var hours = $('#hours').value;
+	this.update();
+
+	seconds--;
+	if(seconds <= 0){}
+}
 
 $(document).ready(function(){
+	var mode = stopwatch;
+
 	timer.html(time);
 
+	$("#stopChoice").click(function() {
+		if (mode != stopwatch){
+			mode = stopwatch;
+			mode.reset();
+			mode.addAnimation("circle", "bounce");
+		}
+	});
+
+	$("#timerChoice").click(function() {
+		if (mode != timing){
+			mode = timing;
+			mode.reset();
+			mode.addAnimation("circle", "bounce");
+		}
+	})
+	
 	$("#start").click(function(){
-		var startFunc = setInterval(function(){ stopwatch.started(); }, 1000);
+		var startFunc = setInterval(function(){ mode.started(); }, 1000);
 
 		$("#stop").click(function(){
 			clearInterval(startFunc);
 		});
 
 		reset.click(function(){
+			mode.reset();
 			clearInterval(startFunc);
-			seconds = 0;
-			minutes = 0;
-			hours = 0;
-			stopwatch.addAnimation("circle", "bounce");
-			stopwatch.update();
+			mode.addAnimation("circle", "bounce");
+		})
+
+		$("#stopChoice").click(function() {
+			mode.reset();
+			clearInterval(startFunc);
+			mode.addAnimation("circle", "bounce");
 		})
 	});
 
@@ -77,8 +117,8 @@ $(document).ready(function(){
 		seconds = 0;
 		minutes = 0;
 		hours = 0;
-		stopwatch.addAnimation("circle", "bounce");
-		stopwatch.update();
+		mode.addAnimation("circle", "bounce");
+		mode.update();
 		})
 
 
