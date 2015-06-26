@@ -4,9 +4,10 @@ var hours = 0;
 var time = (checkZeroes(hours)+":"+checkZeroes(minutes)+":"+checkZeroes(seconds));
 var timer = $("#timer");
 var reset = $("#reset");
+var menu = $("#mybox");
 
 function checkZeroes(a){
-	if(a < 10){
+    if(a < 10){
 		return "0" + String(a);
 	}
 	else{
@@ -68,7 +69,13 @@ timing.started = function(){
 	this.update();
 
 	seconds--;
-	if(seconds <= 0){}
+	if(seconds <= 0){
+		if(seconds){}
+	}
+}
+
+timing.reset = function(){
+
 }
 
 $(document).ready(function(){
@@ -76,21 +83,22 @@ $(document).ready(function(){
 
 	timer.html(time);
 
-	$("#stopChoice").click(function() {
+    $("#stopChoice").click(function() {
 		if (mode != stopwatch){
 			mode = stopwatch;
 			mode.reset();
-			mode.addAnimation("circle", "bounce");
+			menu.removeClass().addClass("animated slideOutRight");
 		}
 	});
-
-	$("#timerChoice").click(function() {
+	$("#timeChoice").click(function() {
 		if (mode != timing){
 			mode = timing;
 			mode.reset();
 			mode.addAnimation("circle", "bounce");
+			menu.removeClass().addClass("animated slideInRight");
 		}
 	})
+	
 	
 	$("#start").click(function(){
 		var startFunc = setInterval(function(){ mode.started(); }, 1000);
