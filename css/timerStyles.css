@@ -75,3 +75,9 @@ body, html{
 	background-color: #1c1e22;
 	padding: 10px;
 }
+#error{
+	display:none;
+}
+.hide{
+	display: none;
+}

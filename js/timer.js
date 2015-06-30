@@ -5,6 +5,8 @@ var time = (checkZeroes(hours)+":"+checkZeroes(minutes)+":"+checkZeroes(seconds)
 var timer = $("#timer");
 var reset = $("#reset");
 var menu = $("#mybox");
+var started = false;
+var startFunc;
 
 function checkZeroes(a){
     if(a < 10){
@@ -14,7 +16,10 @@ function checkZeroes(a){
 		return String(a);
 	}
 }
-
+function inputValidation(field){
+	var digits = (field.match(/\d/g)).join("");
+	return Number(digits);
+}
 function Clock() {
 
 	//updates the time with 0's
@@ -30,6 +35,12 @@ function Clock() {
 		target.addClass(ani).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 			target.removeClass(ani);
 		});
+	},
+	this.reset = function() {
+		seconds = 0;
+		minutes = 0;
+		hours = 0;
+		this.update();
 	}
 }
 
@@ -51,31 +62,34 @@ stopwatch.started = function(){
 		}
 		this.update();
 }
-stopwatch.reset = function() {
-		seconds = 0;
-		minutes = 0;
-		hours = 0;
-		this.update();
-}
 
 var timing = new Clock();
 
 timing.started = function(){
 	// for the timer, it needs to hide everything, show field where user can enter in the desired length
 	//after entering the desired length, counts down.
-	var seconds = $("#seconds").value;
-	var minutes = $('#hours').value;
-	var hours = $('#hours').value;
 	this.update();
 
-	seconds--;
 	if(seconds <= 0){
-		if(seconds){}
+		if (minutes === 0 && hours === 0){
+			clearInterval(startFunc);
+			this.addAnimation("circle", "tada");
+		}
+		else{
+			minutes--;
+			seconds = 59;
+
+			if(minutes <= 0){
+				hours--;
+				minutes = 59;
+			}
+		}
+		//needed an automatic stop
+
 	}
-}
-
-timing.reset = function(){
-
+	else{
+		seconds--;
+	}
 }
 
 $(document).ready(function(){
@@ -87,7 +101,9 @@ $(document).ready(function(){
 		if (mode != stopwatch){
 			mode = stopwatch;
 			mode.reset();
-			menu.removeClass().addClass("animated slideOutRight");
+			menu.removeClass().addClass("animated slideOutRight").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			menu.addClass("hide");
+		});
 		}
 	});
 	$("#timeChoice").click(function() {
@@ -95,13 +111,23 @@ $(document).ready(function(){
 			mode = timing;
 			mode.reset();
 			mode.addAnimation("circle", "bounce");
-			menu.removeClass().addClass("animated slideInRight");
+			menu.removeClass().addClass("animated slideInRight").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			menu.removeClass("hide");
+		});
 		}
 	})
 	
-	
+	$("#set").click(function() {
+		seconds = inputValidation($("#seconds").val()) % 60;
+		minutes = (inputValidation($("#minutes").val()) + Math.floor($("#seconds").val() / 60)) % 60;
+		hours = inputValidation($("#hours").val()) + Math.floor((inputValidation($("#minutes").val()) + Math.floor($("#seconds").val() / 60)) / 60);
+
+		console.log(seconds);
+		mode.update();
+	})
+
 	$("#start").click(function(){
-		var startFunc = setInterval(function(){ mode.started(); }, 1000);
+		startFunc = setInterval(function(){ mode.started(); }, 1000);
 
 		$("#stop").click(function(){
 			clearInterval(startFunc);
