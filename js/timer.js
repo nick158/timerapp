@@ -107,6 +107,7 @@ $(document).ready(function(){
 		}
 	});
 	$("#timeChoice").click(function() {
+		$("#start").prop("disabled", false);
 		if (mode != timing){
 			mode = timing;
 			mode.reset();
@@ -128,9 +129,10 @@ $(document).ready(function(){
 
 	$("#start").click(function(){
 		startFunc = setInterval(function(){ mode.started(); }, 1000);
-
+		$("#start").prop("disabled", true);
 		$("#stop").click(function(){
 			clearInterval(startFunc);
+			$("#start").prop("disabled", false);
 		});
 
 		reset.click(function(){
@@ -142,6 +144,7 @@ $(document).ready(function(){
 		$("#stopChoice").click(function() {
 			mode.reset();
 			clearInterval(startFunc);
+			$("#start").prop("disabled", false);
 			mode.addAnimation("circle", "bounce");
 		})
 	});
@@ -152,6 +155,7 @@ $(document).ready(function(){
 		minutes = 0;
 		hours = 0;
 		mode.addAnimation("circle", "bounce");
+		$("#start").prop("disabled", false);
 		mode.update();
 		})
 
