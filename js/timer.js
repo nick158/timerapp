@@ -120,8 +120,8 @@ $(document).ready(function(){
 	
 	$("#set").click(function() {
 		seconds = inputValidation($("#seconds").val()) % 60;
-		minutes = (inputValidation($("#minutes").val()) + Math.floor($("#seconds").val() / 60)) % 60;
-		hours = inputValidation($("#hours").val()) + Math.floor((inputValidation($("#minutes").val()) + Math.floor($("#seconds").val() / 60)) / 60);
+		minutes = (inputValidation($("#minutes").val()) + Math.floor(inputValidation($("#seconds").val()) / 60)) % 60;
+		hours = inputValidation($("#hours").val()) + Math.floor((inputValidation($("#minutes").val()) + Math.floor(inputValidation($("#seconds").val()) / 60)) / 60);
 
 		console.log(seconds);
 		mode.update();
